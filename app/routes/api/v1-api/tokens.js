@@ -1,7 +1,8 @@
 var Controller = require('./../../../controllers/authentication/tokens'); 
+var oauth2orizeServer = require('./../../../authentication/oauth2orize').server; 
 
 module.exports = {
   register: function(router) {
-    router.get('/token', Controller.get);
+    router.post('/token', oauth2orizeServer.token());
   }
 };
