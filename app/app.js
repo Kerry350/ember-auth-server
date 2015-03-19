@@ -17,6 +17,9 @@ AuthApp.prototype = {
     return require('./models/db')
     .init()
     .then(function() {
+      return this.seedDatabase();
+    }.bind(this))
+    .then(function() {
       return this.createServerInstance();
     }.bind(this))
     .then(function(server) {
@@ -28,6 +31,13 @@ AuthApp.prototype = {
     .then(function() {
       return this.listen(3200); // TODO: Pop this in a config file
     }.bind(this));
+  },
+
+  /* The purpose of this application is to
+     demonstrate authentication, not sign ups, 
+     so a fake client and user is created */
+  seedDatabase: function() {
+
   },
 
   createServerInstance: function() {

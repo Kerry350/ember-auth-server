@@ -16,7 +16,7 @@ module.exports = {
       this.server = oauth2orizeServer;
       setupExchanges(oauth2orizeServer);
       resolve();
-    });    
+    }.bind(this));    
   },
 
   server: null
