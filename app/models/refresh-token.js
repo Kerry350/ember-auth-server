@@ -5,7 +5,8 @@ var schema = mongoose.Schema({
   userId: String,
   scope: String,
   expires: Date,
-  token: String
+  token: String,
+  accessToken: String
 });
 
-module.exports = mongoose.model('accessToken', schema);
+module.exports = mongoose.model('refreshToken', schema);

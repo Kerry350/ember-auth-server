@@ -5,6 +5,8 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var models = require('./models'); 
 var hat = require('hat');
+var cors = require('cors');
+var bodyParser = require('body-parser')
 
 function AuthApp() {};
 
@@ -82,6 +84,9 @@ AuthApp.prototype = {
 
   createServerInstance: function() {
     this.server = express();
+    this.server.use(cors());
+    this.server.use(bodyParser.urlencoded({ extended: false }));
+    this.server.use(bodyParser.json());
     return this.server;
   },
 

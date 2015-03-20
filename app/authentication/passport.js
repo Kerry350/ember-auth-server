@@ -5,7 +5,7 @@ var BearerStrategy = require('passport-http-bearer');
 function setupStrategies() {
   passport.use(new BearerStrategy(
     function(token, done) {
-      // TODO: Fill out strategy callback
+
     }
   ));
 }
