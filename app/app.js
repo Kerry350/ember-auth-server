@@ -3,6 +3,8 @@ var mongoose = require('mongoose');
 var fs = require('fs');
 var Promise = require('bluebird');
 var chalk = require('chalk');
+var models = require('./models'); 
+var hat = require('hat');
 
 function AuthApp() {};
 
@@ -37,7 +39,45 @@ AuthApp.prototype = {
      demonstrate authentication, not sign ups, 
      so a fake client and user is created */
   seedDatabase: function() {
+    var User = models.User;
+    var Client = models.Client;
 
+    return Client
+    .find()
+    .exec()
+    .then(function(clients) {
+      if (clients.length > 0) {
+        return clients; 
+      } else {
+        return new Promise(function(resolve, reject) {
+          var mockUser = new User({
+            email: "test@test.com",
+            password: "password", // Don't do this is production, obviously!
+            name: "Homer Simpson"
+          });
+
+          var mockClient = new Client({
+            secret: hat(),
+            name: "AuthApp",
+            redirectUri: "http://localhost:4200" // TODO: Config this
+          });
+
+          mockUser.save(function(err, item) {
+            if (err) {
+              reject(err);
+            } else {
+              mockClient.save(function(err, item) {
+                if (err) {
+                  reject(err);
+                } else {
+                  resolve();
+                }
+              });
+            }
+          });
+        }.bind(this));
+      }
+    }.bind(this));
   },
 
   createServerInstance: function() {
