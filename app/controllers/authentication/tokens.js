@@ -5,6 +5,7 @@ var hat = require('hat');
 var User = models.User;
 var AccessToken = models.AccessToken;
 var RefreshToken = models.RefreshToken;
+var issueAccessAndRefreshToken = require('./../../authentication/tokens').issueAccessAndRefreshToken;
 
 module.exports = {
   // Takes an authorisation code and exchanges it for an access token
@@ -39,9 +40,6 @@ module.exports = {
                 expires_in: tokenData.expiresIn,
                 type: 'Bearer'
               })
-            })
-            .catch(function(err) {
-              res.status(401).send();
             });
         });
     });
