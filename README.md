@@ -3,7 +3,7 @@ This repo is the server element to be paired with the [ember-auth](https://githu
 Instructions:
 
 - Make sure you have Node.js / npm installed
-- Install and make sure Mongodb is running
+- Install and make sure MongoDB is running
 - Clone the repo 
 - Run `npm install`
 - Run `node index.js`
