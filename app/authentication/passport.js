@@ -1,8 +1,10 @@
 var passport = require('passport');
 var Promise = require('bluebird');
 var BearerStrategy = require('passport-http-bearer');
+var ClientPasswordStrategy = require('passport-oauth2-client-password');
 var models = require('./../models');
 var AccessToken = models.AccessToken;
+var Client = models.Client;
 var authenticateAccessToken = require('./tokens').authenticateAccessToken;
 
 function setupStrategies() {
@@ -22,6 +24,22 @@ function setupStrategies() {
             done(err);
           });
         }
+      });
+    }
+  ));
+
+  passport.use(new ClientPasswordStrategy(
+    function(clientId, clientSecret, done) {
+      Client.findOne({_id: clientId})
+      .exec()
+      .then(function(client) {
+        if (!client) {
+          done(null, false);
+        } else {
+          done(null, client);
+        }
+      }, function(err) {
+        done(err);
       });
     }
   ));

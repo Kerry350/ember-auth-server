@@ -19,7 +19,7 @@ function setupExchanges(server) {
       if (!user) {
         done(null, false);
       } else {
-        issueAccessAndRefreshToken(user)
+        issueAccessAndRefreshToken(user, client)
         .then(function(tokenData) {
           done(null, tokenData.accessToken, tokenData.refreshToken, {expires_in: tokenData.expiresIn});                
         })
@@ -32,7 +32,7 @@ function setupExchanges(server) {
 
 
   // Refresh token grant type 
-  server.exchange(oauth2orize.exchange.refreshToken(function (client, refreshToken, scope, done) { 
+  server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken, scope, done) { 
     RefreshToken
     .findOne({token: refreshToken})
     .exec()
@@ -43,7 +43,7 @@ function setupExchanges(server) {
         if (Date.now() > refreshToken.expires) {
           done(null, false);
         } else {
-          exchangeRefreshTokenForAccessToken(refreshToken)
+          exchangeRefreshTokenForAccessToken(refreshToken, client)
           .then(function(tokenData) {
             done(null, tokenData.accessToken, tokenData.refreshToken, {expires_in: tokenData.expiresIn});                
           })

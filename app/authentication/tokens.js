@@ -7,13 +7,14 @@ var RefreshToken = models.RefreshToken;
 var timeUtils = require('./../utils/time');
 
 /* Issues both an access token and a refresh token to a user */
-function issueAccessAndRefreshToken(user) {
+function issueAccessAndRefreshToken(user, client) {
   return new Promise(function(resolve, reject) {
     var accessToken = new AccessToken({
       userId: user._id,
       scope: '*',
       token: hat(),
-      expires: Date.now() + timeUtils.oneHourMs
+      expires: Date.now() + timeUtils.oneHourMs,
+      clientId: client._id
     });
 
     accessToken.save(function(err, accessToken) {
@@ -22,7 +23,7 @@ function issueAccessAndRefreshToken(user) {
       } else {
         // Issue refresh token
         var refreshToken = new RefreshToken({
-          // clientId: , // TODO: Add in with client support
+          clientId: client._id,
           userId: accessToken.userId,
           scope: accessToken.scope,
           token: hat(),
@@ -46,13 +47,14 @@ function issueAccessAndRefreshToken(user) {
   });
 }
 
-function exchangeRefreshTokenForAccessToken(refreshToken) {
+function exchangeRefreshTokenForAccessToken(refreshToken, client) {
   return new Promise(function(resolve, reject) {
     var accessToken = new AccessToken({
       userId: refreshToken.userId,
       scope: refreshToken.scope,
       token: hat(),
-      expires: Date.now() + timeUtils.oneHourMs
+      expires: Date.now() + timeUtils.oneHourMs,
+      clientId: client._id
     });
 
     accessToken.save(function(err, accessToken) {
@@ -61,7 +63,7 @@ function exchangeRefreshTokenForAccessToken(refreshToken) {
       } else {
         // Issue refresh token
         var refreshToken = new RefreshToken({
-          // clientId: , // TODO: Add in with client support
+          clientId: client._id,
           userId: accessToken.userId,
           scope: accessToken.scope,
           token: hat(),

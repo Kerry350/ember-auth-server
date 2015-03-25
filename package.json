@@ -16,9 +16,12 @@
     "express": "^4.12.3",
     "fb": "^0.7.0",
     "hat": "0.0.3",
+    "install": "^0.1.8",
     "mongoose": "^3.8.25",
+    "npm": "^2.7.3",
     "oauth2orize": "^1.0.1",
     "passport": "^0.2.1",
-    "passport-http-bearer": "^1.0.1"
+    "passport-http-bearer": "^1.0.1",
+    "passport-oauth2-client-password": "^0.1.2"
   }
 }

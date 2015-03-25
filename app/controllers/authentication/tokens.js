@@ -31,7 +31,7 @@ module.exports = {
 
             findOrCreateUserForFacebookAccount(user)
             .then(function(user) {
-              return issueAccessAndRefreshToken(user);
+              return issueAccessAndRefreshToken(user, req.user); // req.user in this instance is the Client
             })
             .then(function(tokenData) {
               res.status(200).send({

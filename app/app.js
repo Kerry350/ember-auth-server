@@ -87,6 +87,15 @@ AuthApp.prototype = {
     this.server.use(cors());
     this.server.use(bodyParser.urlencoded({ extended: false }));
     this.server.use(bodyParser.json());
+    // We can't securely store a client secret within a JS app 
+    // but we need to provide one for the Passport Client strategy
+    this.server.use(function(req, res, next) {
+      if (req.body.client_id) {
+        req.body.client_secret = 'Public Client';
+      }
+
+      next();
+    });
     return this.server;
   },
 
