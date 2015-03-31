@@ -24,7 +24,7 @@ module.exports = {
         
         var options = {
           from: 'passwords@' + process.env.MAILGUN_DOMAIN,
-          to: token.email,
+          to: req.body.email,
           subject: 'Password reset requested',
           body: message,
           html: message
