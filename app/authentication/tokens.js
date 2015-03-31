@@ -4,6 +4,7 @@ var models = require('./../models');
 var User = models.User;
 var AccessToken = models.AccessToken;
 var RefreshToken = models.RefreshToken;
+var PasswordResetToken = models.PasswordResetToken;
 var timeUtils = require('./../utils/time');
 
 /* Issues both an access token and a refresh token to a user */
@@ -100,8 +101,40 @@ function authenticateAccessToken(accessToken) {
   });
 }
 
+/* Resolves with a token if user existed. Or null if they didn't */
+function generatePasswordResetToken(email) {
+  return new Promise(function(resolve, reject) {
+    User
+    .findOne({email: email})
+    .exec()
+    .then(function(user) {
+      if (user) {
+        var passwordResetToken = new PasswordResetToken({
+          userId: user._id,
+          email: user.email,
+          token: hat(),
+          expires: Date.now() + timeUtils.oneHourMs
+        });
+
+        passwordResetToken.save(function(err, token) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(token);
+          }
+        });
+      } else {
+        resolve(null);
+      }
+    }, function(err) {
+      reject(err);
+    });
+  });
+}
+
 module.exports = {
   issueAccessAndRefreshToken: issueAccessAndRefreshToken,
   exchangeRefreshTokenForAccessToken: exchangeRefreshTokenForAccessToken,
-  authenticateAccessToken: authenticateAccessToken
+  authenticateAccessToken: authenticateAccessToken,
+  generatePasswordResetToken: generatePasswordResetToken
 };

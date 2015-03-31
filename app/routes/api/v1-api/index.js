@@ -1,4 +1,5 @@
 module.exports = {
   tokens: require('./tokens'),
-  settings: require('./settings')
+  settings: require('./settings'),
+  users: require('./users')
 };
