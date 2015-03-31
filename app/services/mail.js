@@ -23,7 +23,7 @@ module.exports = {
 
             mailgun.messages().sendMime(dataToSend, function(err, body) {
                 if (err) {
-                    console.log(sendError);
+                    console.log(err);
                     return;
                 }
             });

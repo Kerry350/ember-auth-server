@@ -19,3 +19,8 @@ This project makes use of environment variables which should be stored in a `.en
 
 - `APP_URL`, e.g. `http://localhost:4200`
 - `PASSWORD_RESET_URL`, e.g. `http://localhost:4200/reset-password`
+
+# Possible future features
+
+- Two factor authentication
+- Sign up examples (this was originally aimed at showing authentication rather than the sign up process)
