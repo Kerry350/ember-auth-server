@@ -54,7 +54,7 @@ AuthApp.prototype = {
         return new Promise(function(resolve, reject) {
           var mockUser = new User({
             email: "test@test.com",
-            password: "password", // Don't do this is production, obviously!
+            password: "password",
             name: "Homer Simpson"
           });
 

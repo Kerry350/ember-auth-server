@@ -9,6 +9,7 @@
   "author": "Kerry Gallagher",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^0.8.2",
     "body-parser": "^1.12.2",
     "chalk": "^1.0.0",
     "cors": "^2.5.3",
