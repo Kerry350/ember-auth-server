@@ -23,4 +23,4 @@ This project makes use of environment variables which should be stored in a `.en
 # Possible future features
 
 - Two factor authentication
-- Sign up examples (this was originally aimed at showing authentication rather than the sign up process), password hashing etc
+- ~~Sign up examples (this was originally aimed at showing authentication rather than the sign up process), password hashing etc~~
