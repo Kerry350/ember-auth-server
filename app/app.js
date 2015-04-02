@@ -37,9 +37,7 @@ AuthApp.prototype = {
     }.bind(this));
   },
 
-  /* The purpose of this application is to
-     demonstrate authentication, not sign ups, 
-     so a fake client and user is created */
+  /* Seed a user (registration is also availble), and a Client */
   seedDatabase: function() {
     var User = models.User;
     var Client = models.Client;
